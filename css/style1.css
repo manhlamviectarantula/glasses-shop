@@ -1,0 +1,53 @@
+/* list product */
+.box{
+    padding: 20px;
+    position: relative;
+}
+
+.box h3,
+.box p,
+.box img{
+    margin-bottom: 10px;
+}
+
+.box img{
+    border:  .5px solid #333;
+}
+
+.box p{
+    font-size: 20px;
+}
+
+button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: .8rem 2.8rem;
+    font-size: 1.7rem;
+    color: #333;
+    border:  2px solid #333;
+    background: none;
+    cursor: pointer;
+    border-radius: .5rem;
+    margin-left: 5px;
+}
+
+button:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* cart */
+.content{
+    display: block;
+}
+
+
+.fa-times {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #666;
+
+}

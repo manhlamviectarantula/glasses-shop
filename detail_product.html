@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="./css/style1.css">
 
     <script src="./js/script.js" defer></script>
-    <script src="js/index.js" defer></script>
 </head>
 
 <body>
@@ -43,15 +42,46 @@
         </form>
     </header>
 
-    <section class="products">
+    <section class="detail_product">
 
-        <h1 class="title"> Sản phẩm nổi bật </h1>
+        <h1 class="title"> Chi tiết sản phẩm </h1>
 
         <div id="loading-tiki"></div>
-        <div class="box-container"></div>
+        <div class="box-detail"></div>
 
         <script>
-            fetchDate();
+            const URL_DATA = "https://tiki.vn/api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&trackity_id=88ae0cf9-7aa5-7b41-c6fd-3c5968433553&category=1017&page=1&urlKey=gong-kinh"
+
+            const MY_CART = JSON.parse(localStorage.getItem("MY_CART")) || []
+
+            const fetchDate = () => {
+
+                let loadingEl = document.getElementById("loading-tiki")
+                loadingEl.innerHTML = "Đang loading sản phẩm từ Tiki..."
+                const response = fetch(URL_DATA).then(response => response.json()).then(data => {
+                    console.log(data.data) // data.data is an array of objects
+                    const listItemel = document.getElementsByClassName("box-detail")[0]
+
+                    setTimeout(() => {
+                        loadingEl.innerHTML = ""
+                        data.data.forEach(item => {
+                            const card = document.createElement('div')
+                            card.classList.add('box')
+
+
+                            listItemel.appendChild(card)
+                        })
+
+                        // Function to format price
+                        function formatPrice(price) {
+                            return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                        }
+                    },)
+
+                })
+            }
+
+            fetchDate()
         </script>
 
 

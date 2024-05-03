@@ -113,22 +113,34 @@ section {
         }
     }
 
-    .icons {
-        display: flex;
+    .icons div,
+    .icons a {
+        font-size: 2.5rem;
+        color: #333;
+        cursor: pointer;
+        margin-left: 2rem;
 
-        div,
-        a {
-            font-size: 2.5rem;
-            color: #333;
-            cursor: pointer;
-            margin-left: 2rem;
-
-
-            &:hover {
-                color: #E9B921;
-            }
+        &:hover {
+            color: #E9B921;
         }
     }
+
+    // .icons {
+    //     display: flex;
+
+    //     div,
+    //     a {
+    //         font-size: 2.5rem;
+    //         color: #333;
+    //         cursor: pointer;
+    //         margin-left: 2rem;
+
+
+    //         &:hover {
+    //             color: #E9B921;
+    //         }
+    //     }
+    // }
 
     .search-form {
         position: absolute;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style1.css">
 
     <script src="./js/script.js" defer></script>
 </head>
@@ -31,8 +32,11 @@
 
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
-            <div id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <!-- <div id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a> -->
+
+            <div id="search-btn" class="fa-solid fa-magnifying-glass"></div>
+            <a href="cart.html" class="fa-solid fa-cart-shopping"></a>
         </div>
 
         <form action="" class="search-form">
@@ -43,76 +47,9 @@
 
     <section class="shopping-cart">
 
-        <h1 class="title"> Giỏ hàng </h1>
+        <h1 class="title">Giỏ hàng</h1>
     
-        <div class="box-container">
-    
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="images/product-1.jpg" alt="">
-                <div class="content">
-                    <h3>Mã: ...</h3>
-                    <form action="">
-                        <span>Số lượng:</span>
-                        <input type="number" name="" value="1" id="">
-                    </form>
-                    <div class="price">200.000đ <span>300.000đ</span></div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="images/product-2.jpg" alt="">
-                <div class="content">
-                    <h3>Mã: ...</h3>
-                    <form action="">
-                        <span>Số lượng:</span>
-                        <input type="number" name="" value="1" id="">
-                    </form>
-                    <div class="price">200.000đ <span>300.000đ</span></div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="images/product-3.jpg" alt="">
-                <div class="content">
-                    <h3>Mã: ...</h3>
-                    <form action="">
-                        <span>Số lượng:</span>
-                        <input type="number" name="" value="1" id="">
-                    </form>
-                    <div class="price">200.000đ <span>300.000đ</span></div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="images/product-4.jpg" alt="">
-                <div class="content">
-                    <h3>Mã: ...</h3>
-                    <form action="">
-                        <span>Số lượng:</span>
-                        <input type="number" name="" value="1" id="">
-                    </form>
-                    <div class="price">200.000đ <span>300.000đ</span></div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="images/product-5.jpg" alt="">
-                <div class="content">
-                    <h3>Mã: ...</h3>
-                    <form action="">
-                        <span>Số lượng:</span>
-                        <input type="number" name="" value="1" id="">
-                    </form>
-                    <div class="price">200.000đ <span>300.000đ</span></div>
-                </div>
-            </div>
-    
-        </div>
+        <div class="box-container"></div>
     
         <h1 class="title">Hóa đơn</h1>
     
@@ -125,10 +62,68 @@
     
     </section>
 
+    <script>
+        const MY_CART = JSON.parse(localStorage.getItem("MY_CART")) || [];
+        const listItemel = document.getElementsByClassName("box-container")[0];
+    
+        if (MY_CART.length === 0) {
+            listItemel.innerHTML = "<p>Giỏ hàng của bạn đang trống</p>";
+        } else {
+            MY_CART.forEach((item, index) => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("box");
+
+                const del_btn = document.createElement("i")
+                del_btn.classList.add("fas", "fa-times");
+    
+                const itemImage = document.createElement("img");
+                itemImage.src = item.image;
+                itemImage.alt = item.name;
+
+                const content = document.createElement("div");
+                content.classList.add("content");
+    
+                const itemName = document.createElement("h3");
+                itemName.textContent = item.name;
+    
+                const itemQuantity = document.createElement("p");
+                itemQuantity.textContent = "Số lượng: " + item.quantity;
+    
+                const itemPrice = document.createElement("p");
+                itemPrice.textContent = "Giá: " + formatPrice(item.price);
+    
+                del_btn.addEventListener("click", function() {
+                    removeItemFromCart(index);
+                });
+    
+                cartItem.appendChild(itemImage);
+                cartItem.appendChild(content);
+                cartItem.appendChild(del_btn);
+
+                content.appendChild(itemName);
+                content.appendChild(itemQuantity);
+                content.appendChild(itemPrice);
+    
+                listItemel.appendChild(cartItem);
+            });
+        }
+    
+        function formatPrice(price) {
+            return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        }
+    
+        function removeItemFromCart(index) {
+            MY_CART.splice(index, 1);
+            localStorage.setItem("MY_CART", JSON.stringify(MY_CART));
+            location.reload(); // Reload the page to reflect the changes
+        }
+    </script>
+    
+
     <section class="footer">
 
         <div class="box-container">
-    
+
             <div class="box">
                 <h3>Truy cập nhanh</h3>
                 <a href="home.html"> <i class="fas fa-angle-right"></i>Trang chủ</a>
@@ -139,7 +134,7 @@
                 <a href="register.html"> <i class="fas fa-angle-right"></i>Đăng ký</a>
                 <a href="cart.html"> <i class="fas fa-angle-right"></i>Giỏ hàng</a>
             </div>
-    
+
             <div class="box">
                 <h3>Chính sách</h3>
                 <a href="#"> <i class="fas fa-angle-right"></i>Điều khoản dịch vụ</a>
@@ -148,14 +143,14 @@
                 <a href="#"> <i class="fas fa-angle-right"></i>Đổi trả</a>
                 <a href="#"> <i class="fas fa-angle-right"></i>Tuyển dụng</a>
             </div>
-    
+
             <div class="box">
                 <h3>Nền tảng khác</h3>
                 <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
                 <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
                 <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
             </div>
-    
+
             <div class="box">
                 <h3>Nhập mã giới thiệu</h3>
                 <p>Nhập mã giới thiệu nhận được từ người thân, bạn bè,... để nhận ưu đãi</p>
@@ -164,11 +159,11 @@
                     <input type="submit" value="xác nhận" class="btn">
                 </form>
             </div>
-    
+
         </div>
-    
+
         <div class="credit">Trụ sở chính: <span>VTC ACADEMY</span> TPHCM 4/2024</div>
-    
+
     </section>
 </body>
 
